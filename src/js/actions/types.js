@@ -3,3 +3,6 @@ export const CREATE_NEW_BOARD = "CREATE_NEW_BOARD";
 export const CANCEL_NEW_BOARD = "CANCEL_NEW_BOARD";
 export const ADD_NEW_BOARD = "ADD_NEW_BOARD";
 export const SHOW_BOARD = "SHOW_BOARD";
+export const CREATE_NEW_TASK = "CREATE_NEW_TASK";
+export const CREATE_NEW_ITEM = "CREATE_NEW_ITEM";
+export const TICK_ITEM = "TICK_ITEM";

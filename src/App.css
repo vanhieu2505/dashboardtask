@@ -33,6 +33,11 @@
   padding: 20px;  
 }
 .create-board, .board, .active-create-board {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
   padding: 20px 30px;
   background: aqua;
   margin: 20px;
@@ -42,4 +47,88 @@
 }
 .board{
   background: #fff !important;
+}
+
+.add-new-list {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
+  padding: 20px 40px 40px 10px;
+  background: #fff;
+  margin: 20px;
+  width: 200px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.list-tasks {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  height: fit-content;
+  padding: 10px;
+  background: #fff;
+  margin: 20px;
+  width: 200px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.list-tasks h4 {
+  margin: 0px;
+}
+
+.list-tasks input[type="textbox"], .add-new-list input[type="textbox"] {
+  background: #fff;
+  height: 30px;
+  border-radius: 5.5px;
+  font-size: 16px;
+  padding: 5px 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.list-tasks input[type="textbox"]{
+  padding: 0px 10px !important;
+  width: 176px;
+}
+
+.single-board {
+  text-align: center;
+  margin-left: 40px;
+  background: orange;
+  color: #fff;
+  width: 140px;
+  padding: 1px 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.task-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  opacity: 1;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 6px 6px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 6px 6px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 0 10px;
+  text-align: left;
+  background-color: rgb(202, 255, 222);
+}
+.task-item-tick{
+  cursor: pointer;
+}
+.task-item h5 {
+  margin: 10px 0;
+}
+.task-item.completed h5,.task-item.completed .task-item-tick {
+  text-decoration: line-through;
+}
+.task-item.completed{
+  opacity: 0.35;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 6px 6px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  text-decoration: line-through;
+  background-color: rgb(222, 202, 255);
 }
