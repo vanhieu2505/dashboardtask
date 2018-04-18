@@ -1,0 +1,5 @@
+export const SHOW_HOME_PAGE = "SHOW_HOME_PAGE";
+export const CREATE_NEW_BOARD = "CREATE_NEW_BOARD";
+export const CANCEL_NEW_BOARD = "CANCEL_NEW_BOARD";
+export const ADD_NEW_BOARD = "ADD_NEW_BOARD";
+export const SHOW_BOARD = "SHOW_BOARD";
