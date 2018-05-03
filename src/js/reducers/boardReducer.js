@@ -1,8 +1,8 @@
-import { SHOW_HOME_PAGE, CREATE_NEW_BOARD, CANCEL_NEW_BOARD, ADD_NEW_BOARD, SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM } from '../actions/types';
+import { SHOW_HOME_PAGE, CREATE_NEW_BOARD, CANCEL_NEW_BOARD, ADD_NEW_BOARD, SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM, BEGIN_DRAG, DROP_ITEM } from '../actions/types';
 
 const initialState = {
     type: SHOW_HOME_PAGE,
-    selectedBoard: -1,    
+    selectedBoard: -1,        
     listBoards: [
         { 
             name: 'test1', 
@@ -82,7 +82,7 @@ export default function(state = initialState, action) {
                 type: action.type,
                 listBoards: updatedBoardsForNewItem
             };
-        case TICK_ITEM: 
+        case TICK_ITEM:             
             const updatedBoardsForTickItem = state.listBoards.map((board, index) => {
                 if(index === state.selectedBoard) {
                     const updatedTasksForTickItem = board.listTasks.map((task, subIndex) => {
@@ -112,6 +112,49 @@ export default function(state = initialState, action) {
                 type: action.type,
                 listBoards: updatedBoardsForTickItem
             };
+        case BEGIN_DRAG:
+            return {
+                ...state,
+                draggedSelectedTask: action.selectedTask,
+                draggedSelectedItem: action.selectedItem
+            };
+        case DROP_ITEM:
+            const updatedBoardForDropItem = state.listBoards.map((board, boardIndex) => {
+                if (boardIndex == state.selectedBoard) {
+                    const updatedBoardForDropItem = board.listTasks.map((task, taskIndex) => {
+                        if (taskIndex == state.draggedSelectedTask) {
+                            const updatedListItemPopout = task.listItems.filter((itemOut, itemOutIndex) => itemOutIndex !== state.draggedSelectedItem);
+                            return {
+                                name: task.name,
+                                listItems: updatedListItemPopout
+                            };
+                        } 
+                        if (taskIndex == action.selectedTask) {
+                            const draggedItem = board.listTasks[state.draggedSelectedTask].listItems[state.draggedSelectedItem];
+                            const updatedListItemPopin = [...task.listItems.slice(0, action.selectedItem), 
+                                                        , { name: draggedItem.name, completed: draggedItem.completed },
+                                                        ...task.listItems.slice(action.selectedItem)];
+                            return {
+                                name: task.name,
+                                listItems: updatedListItemPopin
+                            };
+                        }
+                        return task;
+                    });
+                    return {
+                        name: board.name,
+                        listTasks: updatedBoardForDropItem
+                    };
+                }
+                return board;
+            });
+            
+            return {
+                ...state,
+                draggedSelectedTask: '',
+                draggedSelectedItem: '',
+                listBoards: updatedBoardForDropItem
+            }
         default:
             return state;
     }

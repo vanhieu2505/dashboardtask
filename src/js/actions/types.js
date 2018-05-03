@@ -6,3 +6,5 @@ export const SHOW_BOARD = "SHOW_BOARD";
 export const CREATE_NEW_TASK = "CREATE_NEW_TASK";
 export const CREATE_NEW_ITEM = "CREATE_NEW_ITEM";
 export const TICK_ITEM = "TICK_ITEM";
+export const BEGIN_DRAG = "BEGIN_DRAG";
+export const DROP_ITEM = "DROP_ITEM";

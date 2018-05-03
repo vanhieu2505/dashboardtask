@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM } from '../../actions/types';
 import PropTypes from 'prop-types';
 import CreateNewList from './CreateNewList';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 class ListTasksContainer extends Component {
     render() {
@@ -36,5 +38,7 @@ ListTasksContainer.propTypes = {
     selectedBoard: PropTypes.number.isRequired,
     listBoards: PropTypes.array.isRequired
 };
+
+ListTasksContainer = DragDropContext(HTML5Backend)(ListTasksContainer);
 
 export default connect(mapStateToProps, {})(ListTasksContainer);

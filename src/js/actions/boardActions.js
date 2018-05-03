@@ -1,4 +1,4 @@
-import { SHOW_HOME_PAGE, CREATE_NEW_BOARD, CANCEL_NEW_BOARD, ADD_NEW_BOARD, SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM } from './types';
+import { SHOW_HOME_PAGE, CREATE_NEW_BOARD, CANCEL_NEW_BOARD, ADD_NEW_BOARD, SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM, BEGIN_DRAG, DROP_ITEM } from './types';
 
 export const createNewBoard = () => dispatch => {
     dispatch({
@@ -44,6 +44,22 @@ export const createNewItem = (selectedTask, newItem) => dispatch => {
 export const tickItem = (selectedTask, selectedItem) => dispatch => {
     dispatch({
         type: TICK_ITEM,
+        selectedTask: selectedTask,
+        selectedItem: selectedItem
+    });
+}
+
+export const beginDrag = (selectedTask, selectedItem) => dispatch => {
+    dispatch({
+        type: BEGIN_DRAG,
+        selectedTask: selectedTask,
+        selectedItem: selectedItem
+    });
+}
+
+export const dropItem = (selectedTask, selectedItem) => dispatch => {
+    dispatch({
+        type: DROP_ITEM,
         selectedTask: selectedTask,
         selectedItem: selectedItem
     });
