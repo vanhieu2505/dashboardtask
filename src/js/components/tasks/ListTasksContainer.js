@@ -1,44 +1,47 @@
-import React, { Component } from 'react';
-import ListTasks from './ListTasks';
-import { connect } from 'react-redux';
-import { SHOW_BOARD, CREATE_NEW_TASK, CREATE_NEW_ITEM, TICK_ITEM } from '../../actions/types';
-import PropTypes from 'prop-types';
-import CreateNewList from './CreateNewList';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import React, { Component } from "react";
+import ListTasks from "./ListTasks";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import CreateNewList from "./CreateNewList";
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import { showBoard } from "../../actions/boardActions";
 
 class ListTasksContainer extends Component {
-    render() {
-        if(this.props.type === SHOW_BOARD || this.props.type === CREATE_NEW_TASK || this.props.type === CREATE_NEW_ITEM || this.props.type === TICK_ITEM) {
-            return (
-                <div>
-                    <div className="single-board">
-                        <h1>{this.props.listBoards[this.props.selectedBoard].name}</h1>
-                    </div>
-                    <div className="board-container">
-                        <ListTasks />
-                        <CreateNewList />
-                    </div>
-                </div>
-            );
-        } else {
-            return null;
-        }        
-    }
+  componentWillMount() {
+    console.log("here");
+    this.props.showBoard(this.props.match.params.id);
+  }
+
+  render() {
+    console.log(this.props.match.params.id);
+    return (
+      <div className="board-container">
+        <div>
+          <div className="single-board">
+            <h1>{this.props.listBoards[this.props.selectedBoard].name}</h1>
+          </div>
+          <div className="board-container">
+            <ListTasks />
+            <CreateNewList />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = (state) => ({
-    type: state.board.type,
-    selectedBoard: state.board.selectedBoard,
-    listBoards: state.board.listBoards
+const mapStateToProps = state => ({
+  selectedBoard: state.board.selectedBoard,
+  listBoards: state.board.listBoards
 });
 
 ListTasksContainer.propTypes = {
-    type: PropTypes.string.isRequired,
-    selectedBoard: PropTypes.number.isRequired,
-    listBoards: PropTypes.array.isRequired
+  selectedBoard: PropTypes.number.isRequired,
+  listBoards: PropTypes.array.isRequired,
+  showBoard: PropTypes.func.isRequired
 };
 
 ListTasksContainer = DragDropContext(HTML5Backend)(ListTasksContainer);
 
-export default connect(mapStateToProps, {})(ListTasksContainer);
+export default connect(mapStateToProps, { showBoard })(ListTasksContainer);

@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import CreateBoardContainer from './CreateBoardContainer';
-import ListTasksContainer from '../tasks/ListTasksContainer';
-import ListBoards from './ListBoards';
+import React, { Component } from "react";
+import CreateBoardContainer from "./CreateBoardContainer";
+import ListTasksContainer from "../tasks/ListTasksContainer";
+import ListBoards from "./ListBoards";
 
-class BoardContainer extends Component {    
-    render() {
-        return(                      
-            <div className="board-container">
-                <CreateBoardContainer />
-                <ListBoards />
-                <ListTasksContainer />
-            </div>            
-        );
-    }
+class BoardContainer extends Component {
+  render() {
+    return (
+      <div className="board-container">
+        <CreateBoardContainer />
+        <ListBoards />
+      </div>
+    );
+  }
 }
 
 export default BoardContainer;
