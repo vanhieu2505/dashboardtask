@@ -120,25 +120,49 @@ export default function(state = initialState, action) {
             };
         case DROP_ITEM:
             const updatedBoardForDropItem = state.listBoards.map((board, boardIndex) => {
-                if (boardIndex == state.selectedBoard) {
+                if (boardIndex === state.selectedBoard) {
                     const updatedBoardForDropItem = board.listTasks.map((task, taskIndex) => {
-                        if (taskIndex == state.draggedSelectedTask) {
-                            const updatedListItemPopout = task.listItems.filter((itemOut, itemOutIndex) => itemOutIndex !== state.draggedSelectedItem);
-                            return {
-                                name: task.name,
-                                listItems: updatedListItemPopout
-                            };
-                        } 
-                        if (taskIndex == action.selectedTask) {
-                            const draggedItem = board.listTasks[state.draggedSelectedTask].listItems[state.draggedSelectedItem];
-                            const updatedListItemPopin = [...task.listItems.slice(0, action.selectedItem), 
-                                                        , { name: draggedItem.name, completed: draggedItem.completed },
-                                                        ...task.listItems.slice(action.selectedItem)];
-                            return {
-                                name: task.name,
-                                listItems: updatedListItemPopin
-                            };
+                        //drag and drop on same task
+                        if (action.selectedTask === state.draggedSelectedTask) {
+                            if (taskIndex === state.draggedSelectedTask) {
+                                const draggedItem = board.listTasks[state.draggedSelectedTask].listItems[state.draggedSelectedItem];
+                                let updatedListItemPopin = [...task.listItems.slice(0, action.selectedItem), 
+                                                            { name: draggedItem.name, completed: draggedItem.completed },
+                                                            ...task.listItems.slice(action.selectedItem)];
+                                //if popin index is greater than popout index, just pop out normally
+                                if (action.selectedItem > state.draggedSelectedItem) {
+                                    updatedListItemPopin = updatedListItemPopin.filter((itemOut, itemOutIndex) => itemOutIndex !== state.draggedSelectedItem);
+                                } else {
+                                    //if popin index is lesser than popout index, have to increase popout index by 1
+                                    updatedListItemPopin = updatedListItemPopin.filter((itemOut, itemOutIndex) => itemOutIndex !== state.draggedSelectedItem + 1);
+                                }
+
+                                return {
+                                    name: task.name,
+                                    listItems: updatedListItemPopin
+                                };                                
+                            }                         
+                        } else {
+                            //drag and drop on different task                            
+                            if (taskIndex === state.draggedSelectedTask) {
+                                const updatedListItemPopout = task.listItems.filter((itemOut, itemOutIndex) => itemOutIndex !== state.draggedSelectedItem);
+                                return {
+                                    name: task.name,
+                                    listItems: updatedListItemPopout
+                                };
+                            }                         
+                            if (taskIndex === action.selectedTask) {
+                                const draggedItem = board.listTasks[state.draggedSelectedTask].listItems[state.draggedSelectedItem];
+                                const updatedListItemPopin = [...task.listItems.slice(0, action.selectedItem), 
+                                                            { name: draggedItem.name, completed: draggedItem.completed },
+                                                            ...task.listItems.slice(action.selectedItem)];
+                                return {
+                                    name: task.name,
+                                    listItems: updatedListItemPopin
+                                };
+                            }
                         }
+                        
                         return task;
                     });
                     return {
